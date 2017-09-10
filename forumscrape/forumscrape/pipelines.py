@@ -6,16 +6,20 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 from forum.models import ForumMessageTestModel
+from scrapy.exceptions import DropItem
 
 class ForumPipeline(object):
     def process_item(self, item, spider):
 
-        if item['parentID']:
-            parent = ForumMessageTestModel.objects.get(n54ID=item['parentID'])
-            parent.add_child(**item)
+        if ForumMessageTestModel.objects.filter(n54ID=item['n54ID']).exists(): 
+        
+            raise DropItem("Post already exists %s" % item['n54ID'])
+
         else:
-            ForumMessageTestModel.add_root(**item)
+
+            if item['parentID']:
+                parent = ForumMessageTestModel.objects.get(n54ID=item['parentID'])
+                parent.add_child(**item)
+            else:
+                ForumMessageTestModel.add_root(**item)
             
-        #return item
-
-

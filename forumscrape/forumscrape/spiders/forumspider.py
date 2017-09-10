@@ -31,7 +31,7 @@ class ForumLoginSpider(scrapy.Spider):
         item = ForumDjangoItem()
 
         item['title'] = response.xpath('//h1/text()').extract_first()
-        item['author'] = response.xpath('//h1/following-sibling::text()').re_first(r'by\s([^\(\s]+)')
+        item['author'] = response.xpath('//h1/following-sibling::text()').re_first(r'by\s([^\(]+)')
         item['body'] = ''.join(response.xpath('//div[@class="intelliTxt KonaBody"]//node()').extract()[1:-1])
         item['timestamp'] = datetime.strptime(response.xpath('//i/text()').re_first(r'Geplaatst op\s*(.*)'),'%b %d, %Y, %I:%M %p')
         item['n54ID'] = response.url.split("/")[-2]
@@ -50,24 +50,6 @@ class ForumLoginSpider(scrapy.Spider):
             request.meta['parentID'] = item['n54ID']
             yield request
             
-'''
-some code dump:
-
-produces a list of all links for 'parent' posts (apparently '&nbsp;' is translated to '\xa0')
-list=response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract()
-
-        item['title'] = response.xpath('//h1/text()').extract_first()
-        item['author'] = response.xpath('//h1/following-sibling::text()').re_first(r'by\s([^\(\s]+)')
-        item['body'] = ''.join(response.xpath('//div[@class="intelliTxt KonaBody"]//node()').extract()[1:-1])
-        item['date'] = datetime.strptime(response.xpath('//i/text()').re_first(r'Geplaatst op\s*(.*)'),'%b %d, %Y, %I:%M %p')
-        item['network54ID'] = response.url.split("/")[-2]
-        item['network54URL'] = response.url
-        item['hasparent'] = False
-        item['parent'] = parent
-
-
-'''
-
 class ForumSpider(scrapy.Spider):
     name = "forum"
     start_urls =[

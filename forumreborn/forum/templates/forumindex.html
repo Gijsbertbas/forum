@@ -40,7 +40,7 @@ Hun zijn niet gaaf
   </tr>
   {% for item, info in tree %}
   <tr>
-   <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >{% for i in info.depthrange %}&nbsp;{% endfor %}{{item.title}}</font></td>
+   <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >{% for i in info.depthrange %}&nbsp;{% endfor %}<a href={% url 'message-view' item.n54ID %}>{{item.title}}</a></font></td>
    <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ><b>{{item.author}}</b> 
    op {{ item.timestamp|date:"d M Y" }}</font></td>
   </tr>
@@ -110,7 +110,6 @@ Hun zijn niet gaaf
 </tr>
 </table>
 
-</center>
 
 <table border="0" cellPadding="0" cellSpacing="0" width=580>
 <tr>
@@ -130,6 +129,7 @@ Hun zijn niet gaaf
 <p>
 Die gast is altijd gaaf!</font>
 
+</center>
 </body>
 
 </html>
