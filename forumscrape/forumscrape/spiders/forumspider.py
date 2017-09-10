@@ -2,6 +2,7 @@ import scrapy
 from scrapy.shell import inspect_response
 from forumscrape.items import ForumDjangoItem
 from datetime import datetime
+import os
 
 class ForumLoginSpider(scrapy.Spider):
     name = 'scrapeforum'
@@ -10,7 +11,7 @@ class ForumLoginSpider(scrapy.Spider):
     def parse(self, response):
         yield scrapy.FormRequest.from_response(
             response,
-            formdata={'username': 'prinshennie', 'password': 'hans2206'},
+            formdata={'username': os.environ['FORUMUSER'], 'password': os.environ['FORUMPASSWORD']},
             callback=self.after_login
         )
 
