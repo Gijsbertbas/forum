@@ -20,9 +20,10 @@ class ForumLoginSpider(scrapy.Spider):
         # add a loop here for all index pages (1:420) when in production
         parents = [] # replace [] with the response.xpath....extract() of the next line 
         parents.append(response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract_first())
+        parents = response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract()
         
         for parent in parents:
-            parent = 'http://www.network54.com/Forum/95272/message/978460501/GastuH'# forcing a specific message for testing
+            #parent = 'http://www.network54.com/Forum/95272/message/978460501/GastuH'# forcing a specific message for testing
             request = scrapy.Request(parent, callback=self.process_message)
             request.meta['parentID'] = None
             yield request
@@ -50,15 +51,23 @@ class ForumLoginSpider(scrapy.Spider):
             request.meta['parentID'] = item['n54ID']
             yield request
             
-class ForumSpider(scrapy.Spider):
-    name = "forum"
-    start_urls =[
-        'http://www.network54.com/forum/95272/',
-    ]
+class ForumMessageSpider(scrapy.Spider):
+
+    name = 'inspectforummessage'
     
-    def parse(self,response):
-        page = response.url.split("/")[-2]
-        filename = 'forum/quotes-%s.html' % page
-        with open(filename, 'wb') as f:
-            f.write(response.body)
+    def __init__(self, mid='', *args, **kwargs):
+        super(ForumMessageSpider, self).__init__(*args, **kwargs)
+        self.start_urls = ['http://www.network54.com/Forum/95272/message/%s' % mid]
+ 
+
+    def parse(self, response):
+        yield scrapy.FormRequest.from_response(
+            response,
+            formdata={'username': os.environ['FORUMUSER'], 'password': os.environ['FORUMPASSWORD']},
+            callback=self.after_login
+        )
+
+    def after_login(self, response):
+        inspect_response(response, self) # opens terminal
+        return
 

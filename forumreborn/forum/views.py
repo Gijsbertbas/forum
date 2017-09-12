@@ -14,7 +14,13 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['title'] = self.title
-        tree = ForumMessageTestModel.get_annotated_list()
+        indno = max(int(self.kwargs['indno']),1)
+        context['previous'] = indno-1
+        context['next'] = indno+1
+        perpage = 10
+        tree = []
+        for node in ForumMessageTestModel.get_root_nodes().order_by('-timestamp')[indno*perpage-perpage:indno*perpage]: 
+            tree.extend(ForumMessageTestModel.get_annotated_list(node))
         for item, info in tree:
             info['depthrange']=range(info['level'])
         context['tree'] = tree
