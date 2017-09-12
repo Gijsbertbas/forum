@@ -1,0 +1,7 @@
+# OS generated files #
+######################
+.scrapingold/*
+*.py[cod]
+ehthumbs.db
+Thumbs.db
+
