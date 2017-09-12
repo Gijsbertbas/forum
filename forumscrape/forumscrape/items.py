@@ -7,7 +7,7 @@
 
 import scrapy
 from scrapy_djangoitem import DjangoItem
-from forum.models import ForumMessageTestModel
+from forum.models import ForumMessageModel
 
 
 class ForumMessageItem(scrapy.Item):
@@ -23,5 +23,8 @@ class ForumMessageItem(scrapy.Item):
     
 class ForumDjangoItem(DjangoItem):
 
-    django_model = ForumMessageTestModel
+    django_model = ForumMessageModel
 
+    def __repr__(self):
+        """only print out attr1 after exiting the Pipeline"""
+        return repr("scraped another item")

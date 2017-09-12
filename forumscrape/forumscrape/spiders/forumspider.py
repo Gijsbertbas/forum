@@ -17,13 +17,16 @@ class ForumLoginSpider(scrapy.Spider):
 
     def after_login(self, response):
     
-        # add a loop here for all index pages (1:420) when in production
-        parents = [] # replace [] with the response.xpath....extract() of the next line 
-        parents.append(response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract_first())
+        for i in range(5):
+            yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
+
+    def get_parents(self, response):
+    
+        #parents = [] 
+        #parents.append(response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract_first())
         parents = response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract()
         
         for parent in parents:
-            #parent = 'http://www.network54.com/Forum/95272/message/978460501/GastuH'# forcing a specific message for testing
             request = scrapy.Request(parent, callback=self.process_message)
             request.meta['parentID'] = None
             yield request
@@ -38,8 +41,6 @@ class ForumLoginSpider(scrapy.Spider):
         item['n54ID'] = response.url.split("/")[-2]
         item['n54URL'] = response.url
         item['parentID'] = response.meta['parentID']
-        
-        #inspect_response(response, self) # opens terminal
         
         children = response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract() 
         # if no children this returns an empty list

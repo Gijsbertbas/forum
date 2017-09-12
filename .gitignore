@@ -2,6 +2,6 @@
 ######################
 .scrapingold/*
 *.py[cod]
-ehthumbs.db
+thumbs.db
 Thumbs.db
 

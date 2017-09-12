@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import View, TemplateView
 from django.http import HttpResponse
-from forum.models import ForumMessageTestModel
+from forum.models import ForumMessageModel
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -17,10 +17,10 @@ class IndexView(TemplateView):
         indno = max(int(self.kwargs['indno']),1)
         context['previous'] = indno-1
         context['next'] = indno+1
-        perpage = 10
+        perpage = 20
         tree = []
-        for node in ForumMessageTestModel.get_root_nodes().order_by('-timestamp')[indno*perpage-perpage:indno*perpage]: 
-            tree.extend(ForumMessageTestModel.get_annotated_list(node))
+        for node in ForumMessageModel.get_root_nodes().order_by('-timestamp')[indno*perpage-perpage:indno*perpage]: 
+            tree.extend(ForumMessageModel.get_annotated_list(node))
         for item, info in tree:
             info['depthrange']=range(info['level'])
         context['tree'] = tree
@@ -39,9 +39,9 @@ class MessageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MessageView, self).get_context_data(**kwargs)
         context['title'] = self.title
-        post = ForumMessageTestModel.objects.get(n54ID=self.kwargs['id'])
+        post = ForumMessageModel.objects.get(n54ID=self.kwargs['id'])
         context['post'] = post
-        tree = ForumMessageTestModel.get_annotated_list(parent=post)[1:]
+        tree = ForumMessageModel.get_annotated_list(parent=post)[1:]
         for item, info in tree:
             info['depthrange']=range(info['level']-1)
         context['tree'] = tree
