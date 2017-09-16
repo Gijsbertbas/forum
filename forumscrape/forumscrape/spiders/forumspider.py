@@ -7,6 +7,8 @@ import os
 class ForumLoginSpider(scrapy.Spider):
     name = 'scrapeforum'
     start_urls = ['http://www.network54.com/Forum/95272']
+    download_timeout = 20
+    download_delay = 0.1
 
     def parse(self, response):
         yield scrapy.FormRequest.from_response(
@@ -17,7 +19,7 @@ class ForumLoginSpider(scrapy.Spider):
 
     def after_login(self, response):
     
-        for i in range(5):
+        for i in range(50,100):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
@@ -35,7 +37,7 @@ class ForumLoginSpider(scrapy.Spider):
         item = ForumDjangoItem()
 
         item['title'] = response.xpath('//h1/text()').extract_first()
-        item['author'] = response.xpath('//h1/following-sibling::text()').re_first(r'by\s([^\(]+)')
+        item['author'] = response.xpath('//h1/following-sibling::text()').re_first(r'by\s([^\(]+)').strip()
         item['body'] = ''.join(response.xpath('//div[@class="intelliTxt KonaBody"]//node()').extract()[1:-1])
         item['timestamp'] = datetime.strptime(response.xpath('//i/text()').re_first(r'Geplaatst op\s*(.*)'),'%b %d, %Y, %I:%M %p')
         item['n54ID'] = response.url.split("/")[-2]
