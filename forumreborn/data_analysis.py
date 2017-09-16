@@ -15,17 +15,11 @@ print('\n TOTALS:')
 print('%i baarden' % ForumMessageModel.get_root_nodes().count())
 print('%i posts' % ForumMessageModel.objects.all().count())
 
-postsperprins = ForumMessageModel.objects.values('author').order_by('author').annotate(count=Count('author'))
-postsperprins = list(postsperprins)
-postsperprinsdict = {}
-for item in postsperprins:
-    postsperprinsdict[item['author'].strip()] = item['count']
-
-topposters = sorted(postsperprinsdict.items(), key=operator.itemgetter(1), reverse=True)
 print('\n TOP 10 POSTERS:')
-for name, count in topposters[:10]:
-    print('%i posts door %s' % (count, name))
-
+postsperprins = ForumMessageModel.objects.values('author').annotate(count=Count('author')).order_by('-count')
+for item in postsperprins[:10]:
+    print('%i posts door %s' % (item['count'], item['author']))
+    
 print('\n WORDCOUNT:')
 keywords = ['tieten','kut','geil','gast','gasten','bier','pils','brak','PrinsPils','USR']
 for key in keywords:
