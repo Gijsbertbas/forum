@@ -4,6 +4,8 @@ extracting some interesting facts and figures from the database
 run from within django shell with:
 exec(open("./data_analysis.py").read())
 
+for inst in ForumMessageModel.objects.all(): inst.author = inst.author.strip(); inst.save()
+
 '''
 from django.db.models import Count, Max #,Q
 import operator
