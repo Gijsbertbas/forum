@@ -8,7 +8,7 @@ class ForumLoginSpider(scrapy.Spider):
     name = 'scrapeforum'
     start_urls = ['http://www.network54.com/Forum/95272']
     download_timeout = 20
-    download_delay = 0.1
+    download_delay = 2
 
     def parse(self, response):
         yield scrapy.FormRequest.from_response(
@@ -19,7 +19,7 @@ class ForumLoginSpider(scrapy.Spider):
 
     def after_login(self, response):
     
-        for i in range(50,100):
+        for i in range(110,200):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
@@ -74,3 +74,37 @@ class ForumMessageSpider(scrapy.Spider):
         inspect_response(response, self) # opens terminal
         return
 
+class ForumCheckSpider(scrapy.Spider):
+    name = 'checkmissingposts'
+    start_urls = ['http://www.network54.com/Forum/95272']
+    download_timeout = 20
+    download_delay = 2
+
+    def __init__(self, *args, **kwargs):
+        super(ForumMessageSpider, self).__init__(*args, **kwargs)
+        self.ids_seen = ForumMessageModel.objects.all().values_list('n54ID',flat=True)
+    
+    
+    def parse(self, response):
+        yield scrapy.FormRequest.from_response(
+            response,
+            formdata={'username': os.environ['FORUMUSER'], 'password': os.environ['FORUMPASSWORD']},
+            callback=self.after_login
+        )
+
+    def after_login(self, response):
+    
+        for i in range(1,421):
+            yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
+
+    def get_parents(self, response):
+    
+        posts = response.xpath('//table[@cellspacing=1]//a/@href').extract()
+        
+        for post in posts:
+            n54ID = post.split("/")[-2]
+            if not n54ID in self.ids_seen:
+                print('%i has not been scraped yet (from indexpage: %s)\n' % (n54ID,response.url))
+
+        return
+        
