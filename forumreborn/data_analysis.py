@@ -2,7 +2,7 @@
 extracting some interesting facts and figures from the database
 
 run from within django shell with:
-exec(open("./data_analysis.py").read())
+exec(open("data_analysis.py").read())
 
 for inst in ForumMessageModel.objects.all(): inst.author = inst.author.strip(); inst.save()
 
@@ -31,3 +31,22 @@ for year in range(2001,2015):
 
 print('\n LONGEST DISCUSSION:')
 print('%i posts in de langste discussie' % ForumMessageModel.objects.all().aggregate(Max('depth'))['depth__max'])
+
+'''
+regex for URLs
+'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+'(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?'
+
+import re
+match=re.compile(r'(?<=</a>)(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?')
+re.sub(match,'',first.body)
+
+scrapy crawl checkmissingposts -o missing.csv
+
+proefschrift 1303996779
+
+grappige berichten:
+http://deprinsen.pythonanywhere.com/forum/message/1019404061 : lycos mail geeft wel 15 MB !! mailbox
+http://deprinsen.pythonanywhere.com/forum/message/1142343754 : jc namen suggesties
+http://deprinsen.pythonanywhere.com/forum/message/1008843377 : statistieken met in de baard melding dat R en mart te weinig posten
+'''

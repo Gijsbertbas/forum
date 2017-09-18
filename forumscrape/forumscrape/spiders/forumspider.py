@@ -8,7 +8,6 @@ class ForumLoginSpider(scrapy.Spider):
     name = 'scrapeforum'
     start_urls = ['http://www.network54.com/Forum/95272']
     download_timeout = 20
-    download_delay = 2
 
     def parse(self, response):
         yield scrapy.FormRequest.from_response(

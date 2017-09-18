@@ -26,6 +26,7 @@ SECRET_KEY = '6m0j$ndc!t%=%$+-x%80v$4_*j+u!z=z10mk45m_n6=dlzo&-@'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
     'deprinsen.pythonanywhere.com',
 ]
 
