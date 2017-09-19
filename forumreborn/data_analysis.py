@@ -37,6 +37,9 @@ for hour in range(24):
     print('%i posts tussen %i en %i uur' % (ForumMessageModel.objects.filter(timestamp__hour=hour).count(),hour,hour+1))
 
 '''
+data=[316,1158,2201,2097,2937,6538,4152,3169,2669,1350,790,75,16,1]
+py=pd.Series(data=data,index=pd.PeriodIndex(start=2001,end=2014)
+
 regex for URLs
 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 '(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?'
