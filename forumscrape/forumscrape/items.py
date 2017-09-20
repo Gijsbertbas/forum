@@ -9,6 +9,11 @@ import scrapy
 from scrapy_djangoitem import DjangoItem
 from forum.models import ForumMessageModel
 
+class ForumMissingItem(scrapy.Item):
+    
+    n54ID = scrapy.Field()
+    indexpage = scrapy.Field()
+
 
 class ForumMessageItem(scrapy.Item):
     

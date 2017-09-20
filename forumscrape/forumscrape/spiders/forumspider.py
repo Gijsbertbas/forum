@@ -1,8 +1,9 @@
 import scrapy
 from scrapy.shell import inspect_response
-from forumscrape.items import ForumDjangoItem
+from forumscrape.items import ForumDjangoItem, ForumMissingItem
 from datetime import datetime
 import os
+from forum.models import ForumMessageModel
 
 class ForumLoginSpider(scrapy.Spider):
     name = 'scrapeforum'
@@ -18,7 +19,7 @@ class ForumLoginSpider(scrapy.Spider):
 
     def after_login(self, response):
     
-        for i in range(250,300):
+        for i in range(350,421):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
@@ -80,7 +81,7 @@ class ForumCheckSpider(scrapy.Spider):
     download_delay = 2
 
     def __init__(self, *args, **kwargs):
-        super(ForumMessageSpider, self).__init__(*args, **kwargs)
+        super(ForumCheckSpider, self).__init__(*args, **kwargs)
         self.ids_seen = ForumMessageModel.objects.all().values_list('n54ID',flat=True)
     
     
@@ -93,7 +94,7 @@ class ForumCheckSpider(scrapy.Spider):
 
     def after_login(self, response):
     
-        for i in range(1,421):
+        for i in range(400,405):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
@@ -102,8 +103,11 @@ class ForumCheckSpider(scrapy.Spider):
         
         for post in posts:
             n54ID = post.split("/")[-2]
-            if not n54ID in self.ids_seen:
-                print('%i has not been scraped yet (from indexpage: %s)\n' % (n54ID,response.url))
 
-        return
-        
+            if not n54ID in self.ids_seen:
+                item = ForumMissingItem()
+                item['n54ID']=n54ID
+                item['indexpage']=response.url
+                yield item
+                
+

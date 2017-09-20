@@ -52,7 +52,8 @@ for message in withlink:
     message.body = re.sub(match,'',message.body)
     message.save()
 
-scrapy crawl checkmissingposts -o missing.csv
+scrapy crawl checkmissingposts -t csv -o missing.csv --loglevel=INFO
+! and cancel pipeline !!
 
 proefschrift 1303996779
 
