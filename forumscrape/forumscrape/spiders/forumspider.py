@@ -7,7 +7,7 @@ import os
 class ForumLoginSpider(scrapy.Spider):
     name = 'scrapeforum'
     start_urls = ['http://www.network54.com/Forum/95272']
-    download_timeout = 10
+    download_timeout = 20
 
     def parse(self, response):
         yield scrapy.FormRequest.from_response(
@@ -18,7 +18,7 @@ class ForumLoginSpider(scrapy.Spider):
 
     def after_login(self, response):
     
-        for i in range(200,250):
+        for i in range(250,300):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
