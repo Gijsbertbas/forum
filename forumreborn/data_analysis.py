@@ -11,7 +11,8 @@ from django.db.models import Count, Max #,Q
 from forum.models import ForumMessageModel
 
 print('\n TOTALS:')
-print('%i baarden' % ForumMessageModel.get_root_nodes().count())
+baarden = ForumMessageModel.get_root_nodes().count()
+print('%i baarden (%i index paginas)' % (baarden, baarden/20))
 print('%i posts' % ForumMessageModel.objects.all().count())
 
 print('\n TOP 10 POSTERS:')
@@ -31,11 +32,11 @@ for year in range(2001,2015):
 print('\n LONGEST DISCUSSION:')
 print('%i posts in de langste discussie' % ForumMessageModel.objects.all().aggregate(Max('depth'))['depth__max'])
 
+'''
 print('\n PER HOUR:')
 for hour in range(24):
     print('%i posts tussen %i en %i uur' % (ForumMessageModel.objects.filter(timestamp__hour=hour).count(),hour,hour+1))
 
-'''
 ERRORS:
 index pages 50 -100: error 1235250521
 index pages 110-200: gave 16 errors (don't know which)
