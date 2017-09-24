@@ -10,13 +10,12 @@ from scrapy_djangoitem import DjangoItem
 from forum.models import ForumMessageModel
 
 class ForumMissingItem(scrapy.Item):
-    
-    n54ID = scrapy.Field()
-    indexpage = scrapy.Field()
 
+    indexpage = scrapy.Field()
+    postids = scrapy.Field()
 
 class ForumMessageItem(scrapy.Item):
-    
+
     title = scrapy.Field()
     author = scrapy.Field()
     body = scrapy.Field()
@@ -25,7 +24,7 @@ class ForumMessageItem(scrapy.Item):
     n54URL = scrapy.Field()
     hasparent = scrapy.Field()
     parentID = scrapy.Field()
-    
+
 class ForumDjangoItem(DjangoItem):
 
     django_model = ForumMessageModel

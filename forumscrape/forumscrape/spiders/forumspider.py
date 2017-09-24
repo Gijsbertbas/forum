@@ -18,21 +18,21 @@ class ForumLoginSpider(scrapy.Spider):
         )
 
     def after_login(self, response):
-    
+
         for i in range(350,421):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
-    
-        #parents = [] 
+
+        #parents = []
         #parents.append(response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract_first())
         parents = response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract()
-        
+
         for parent in parents:
             request = scrapy.Request(parent, callback=self.process_message)
             request.meta['parentID'] = None
             yield request
-        
+
     def process_message(self, response):
         item = ForumDjangoItem()
 
@@ -43,8 +43,8 @@ class ForumLoginSpider(scrapy.Spider):
         item['n54ID'] = response.url.split("/")[-2]
         item['n54URL'] = response.url
         item['parentID'] = response.meta['parentID']
-        
-        children = response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract() 
+
+        children = response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract()
         # if no children this returns an empty list
 
         yield item
@@ -53,15 +53,15 @@ class ForumLoginSpider(scrapy.Spider):
             request = scrapy.Request(child, callback=self.process_message)
             request.meta['parentID'] = item['n54ID']
             yield request
-            
+
 class ForumMessageSpider(scrapy.Spider):
 
     name = 'inspectforummessage'
-    
+
     def __init__(self, mid='', *args, **kwargs):
         super(ForumMessageSpider, self).__init__(*args, **kwargs)
         self.start_urls = ['http://www.network54.com/Forum/95272/message/%s' % mid]
- 
+
 
     def parse(self, response):
         yield scrapy.FormRequest.from_response(
@@ -83,8 +83,8 @@ class ForumCheckSpider(scrapy.Spider):
     def __init__(self, *args, **kwargs):
         super(ForumCheckSpider, self).__init__(*args, **kwargs)
         self.ids_seen = ForumMessageModel.objects.all().values_list('n54ID',flat=True)
-    
-    
+
+
     def parse(self, response):
         yield scrapy.FormRequest.from_response(
             response,
@@ -93,21 +93,23 @@ class ForumCheckSpider(scrapy.Spider):
         )
 
     def after_login(self, response):
-    
+
         for i in range(400,405):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
-    
+
+        item = ForumMissingItem()
+        item['indexpage']=response.url
+
         posts = response.xpath('//table[@cellspacing=1]//a/@href').extract()
-        
+        ids = []
+
         for post in posts:
             n54ID = post.split("/")[-2]
 
             if not n54ID in self.ids_seen:
-                item = ForumMissingItem()
-                item['n54ID']=n54ID
-                item['indexpage']=response.url
-                yield item
-                
+                ids.append(n54ID)
 
+        item['postids'] = ids
+        yield item
