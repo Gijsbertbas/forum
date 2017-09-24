@@ -70,6 +70,7 @@ CHECK MISSING POSTS:
 scrapy crawl checkmissingposts -t csv -o missing.csv --loglevel=INFO
 
 GRAPPIG:
+1032350845
 http://deprinsen.pythonanywhere.com/forum/message/1019404061 : lycos mail geeft wel 15 MB !! mailbox
 http://deprinsen.pythonanywhere.com/forum/message/1142343754 : jc namen suggesties
 http://deprinsen.pythonanywhere.com/forum/message/1008843377 : statistieken met in de baard melding dat R en mart te weinig posten
