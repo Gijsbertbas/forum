@@ -40,7 +40,7 @@ Hun zijn niet gaaf
   {% for item, info in tree %}
   <tr>
    <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >{% for i in info.depthrange %}&nbsp;{% endfor %}<a href={% url 'message-view' item.n54ID %}>{{item.title}}</a></font></td>
-   <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ><b>{{item.author}}</b> 
+   <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ><b>{{item.author}}</b>
    op {{ item.timestamp|date:"d M Y" }}</font></td>
   </tr>
   {% endfor %}
@@ -53,9 +53,10 @@ Hun zijn niet gaaf
 <tr>
     <td align=center><font face="century gothic"  size="-1" >
     {% if previous > 0 %}
-    <a href={% url 'index' previous %}>&#60;&#60; vorige</a>&nbsp;&nbsp;
+    <a href={% url 'index' previous %}>&#60;&#60; nieuw</a>&nbsp;&nbsp;
     {% endif %}
-    <a href={% url 'index' next %}>volgende &#62;&#62;</a>&nbsp;
+    <a href={% url 'index' random %}>random</a>&nbsp;
+    <a href={% url 'index' next %}>oud &#62;&#62;</a>&nbsp;
     <p></font>
     </td>
 </tr>
@@ -65,9 +66,9 @@ Hun zijn niet gaaf
 <table border="0" cellPadding="0" cellSpacing="0" width=580>
 <tr>
     <td width="140" valign="bottom"></td><td valign="bottom" nowrap><font color="#666666" size="-2">
-    &nbsp;Copyright 
-    &copy;1999-2017 
-    <font color=#666666 size=-2>Network54 and gijsbertbas</font>. 
+    &nbsp;Copyright
+    &copy;1999-2017
+    <font color=#666666 size=-2>Network54 and gijsbertbas</font>.
     All rights reserved. &nbsp;&nbsp;</font>
     <font color=#666666 size=-2>
     Terms of Use </font>&nbsp;&nbsp;

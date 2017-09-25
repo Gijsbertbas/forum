@@ -42,6 +42,7 @@ ERRORS:
 index pages 50 -100: error 1235250521
 index pages 110-200: gave 16 errors (don't know which)
 table issues example: proefschrift 1303996779
+repeated text: 1145277452
 
 PANDAS:
 import pandas as pd
@@ -74,4 +75,5 @@ GRAPPIG:
 http://deprinsen.pythonanywhere.com/forum/message/1019404061 : lycos mail geeft wel 15 MB !! mailbox
 http://deprinsen.pythonanywhere.com/forum/message/1142343754 : jc namen suggesties
 http://deprinsen.pythonanywhere.com/forum/message/1008843377 : statistieken met in de baard melding dat R en mart te weinig posten
+http://deprinsen.pythonanywhere.com/forum/message/980431599 : boogie en folkert (goof!) verdedigen Mart
 '''
