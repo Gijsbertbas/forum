@@ -14,7 +14,8 @@ print('\n TOTALS:')
 baarden = ForumMessageModel.get_root_nodes().count()
 print('%i baarden (%i index paginas)' % (baarden, baarden/20))
 posts = ForumMessageModel.objects.all().count()
-print('%i posts (%i to go...)' % (posts,35200-posts))
+missing = (421*20-baarden)*posts/baarden
+print('%i posts (%i to go...)' % (posts,missing))
 
 print('\n TOP 10 POSTERS:')
 postsperprins = ForumMessageModel.objects.values('author').annotate(count=Count('author')).order_by('-count')
