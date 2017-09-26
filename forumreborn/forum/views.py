@@ -1,41 +1,38 @@
-from django.shortcuts import render
-from django.views.generic.base import View, TemplateView
-from django.http import HttpResponse
+from django.views.generic.base import TemplateView
 from forum.models import ForumMessageModel
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+from random import randint
 
 class IndexView(TemplateView):
-    
+
     template_name = 'forumindex.html'
     title = "De Prinsen! reborn"
-    
+
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['title'] = self.title
         indno = max(int(self.kwargs['indno']),1)
         context['previous'] = indno-1
+        context['random'] = randint(1,int(ForumMessageModel.get_root_nodes().count()/20))
         context['next'] = indno+1
         perpage = 20
         tree = []
-        for node in ForumMessageModel.get_root_nodes().order_by('-timestamp')[indno*perpage-perpage:indno*perpage]: 
+        for node in ForumMessageModel.get_root_nodes().order_by('-timestamp')[indno*perpage-perpage:indno*perpage]:
             tree.extend(ForumMessageModel.get_annotated_list(node))
         for item, info in tree:
             info['depthrange']=range(info['level'])
         context['tree'] = tree
         return context
 
-    
+
     def get(self, request, *args, **kwargs):
         context = self.get_context_data()
         return super(TemplateView, self).render_to_response(context)
 
 class MessageView(TemplateView):
-    
+
     template_name = 'forummessage.html'
     title = "De Prinsen! reborn: post"
-    
+
     def get_context_data(self, **kwargs):
         context = super(MessageView, self).get_context_data(**kwargs)
         context['title'] = self.title
@@ -46,7 +43,7 @@ class MessageView(TemplateView):
             info['depthrange']=range(info['level']-1)
         context['tree'] = tree
         return context
-    
+
     def get(self,request,*args,**kwargs):
         context = self.get_context_data()
         return super(TemplateView, self).render_to_response(context)
