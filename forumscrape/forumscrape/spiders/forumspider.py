@@ -18,14 +18,12 @@ class ForumLoginSpider(scrapy.Spider):
         )
 
     def after_login(self, response):
-
-        for i in range(350,421):
+        indices = [250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298]
+        for i in indices:#range(300,350):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
 
-        #parents = []
-        #parents.append(response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract_first())
         parents = response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract()
 
         for parent in parents:
