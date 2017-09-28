@@ -4,8 +4,6 @@ extracting some interesting facts and figures from the database
 run from within django shell with:
 exec(open("data_analysis.py").read())
 
-for inst in ForumMessageModel.objects.all(): inst.author = inst.author.strip(); inst.save()
-
 '''
 from django.db.models import Count, Max #,Q
 from forum.models import ForumMessageModel
@@ -14,7 +12,11 @@ print('\n TOTALS:')
 baarden = ForumMessageModel.get_root_nodes().count()
 print('%i baarden (%i index paginas)' % (baarden, baarden/20))
 posts = ForumMessageModel.objects.all().count()
-print('%i posts (%i to go...)' % (posts,35200-posts))
+missing = (421*20-baarden)*posts/baarden
+ids = open('missing.dat').read().split(',')
+ids_seen = ForumMessageModel.objects.all().values_list('n54ID',flat=True)
+_ = [ids.remove(str(x)) for x in ids_seen if str(x) in ids]
+print('%i posts (%i to go...)' % (posts,len(ids)))
 
 print('\n TOP 10 POSTERS:')
 postsperprins = ForumMessageModel.objects.values('author').annotate(count=Count('author')).order_by('-count')
