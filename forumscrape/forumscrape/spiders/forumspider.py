@@ -92,7 +92,7 @@ class ForumCheckSpider(scrapy.Spider):
 
     def after_login(self, response):
 
-        for i in range(400,405):
+        for i in range(1,422):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
@@ -106,7 +106,7 @@ class ForumCheckSpider(scrapy.Spider):
         for post in posts:
             n54ID = post.split("/")[-2]
 
-            if not n54ID in self.ids_seen:
+            if not int(n54ID) in self.ids_seen:
                 ids.append(n54ID)
 
         item['postids'] = ids
