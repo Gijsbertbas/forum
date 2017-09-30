@@ -111,3 +111,69 @@ class ForumCheckSpider(scrapy.Spider):
 
         item['postids'] = ids
         yield item
+
+class ForumInfillSpider(scrapy.Spider):
+    name = 'foruminfill'
+    start_urls = ['http://www.network54.com/Forum/95272']
+    download_timeout = 20
+
+    def __init__(self, message='', parent=None, *args, **kwargs):
+        super(ForumInfillSpider, self).__init__(*args, **kwargs)
+        self.message = message
+        self.parent = parent
+
+    def parse(self, response):
+        yield scrapy.FormRequest.from_response(
+            response,
+            formdata={'username': os.environ['FORUMUSER'], 'password': os.environ['FORUMPASSWORD']},
+            callback=self.after_login
+        )
+
+    def after_login(self, response):
+
+        message = ['http://www.network54.com/Forum/95272/message/%s' % self.message]
+
+        request = scrapy.Request(message[0], callback=self.process_message)
+        request.meta['parentID'] = self.parent
+        yield request
+
+    def process_message(self, response):
+        item = ForumDjangoItem()
+
+        item['title'] = response.xpath('//h1/text()').extract_first()
+        item['author'] = response.xpath('//h1/following-sibling::text()').re_first(r'by\s([^\(]+)').strip()
+        item['body'] = ''.join(response.xpath('//div[@class="intelliTxt KonaBody"]//node()').extract()[1:-1])
+        item['timestamp'] = datetime.strptime(response.xpath('//i/text()').re_first(r'Geplaatst op\s*(.*)'),'%b %d, %Y, %I:%M %p')
+        item['n54ID'] = response.url.split("/")[-1]
+        item['n54URL'] = response.url
+        item['parentID'] = response.meta['parentID']
+
+        children = response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract()
+
+        yield item
+
+        for child in children:
+            request = scrapy.Request(child, callback=self.process_children)
+            request.meta['parentID'] = item['n54ID']
+            yield request
+
+    def process_children(self, response):
+        item = ForumDjangoItem()
+
+        item['title'] = response.xpath('//h1/text()').extract_first()
+        item['author'] = response.xpath('//h1/following-sibling::text()').re_first(r'by\s([^\(]+)').strip()
+        item['body'] = ''.join(response.xpath('//div[@class="intelliTxt KonaBody"]//node()').extract()[1:-1])
+        item['timestamp'] = datetime.strptime(response.xpath('//i/text()').re_first(r'Geplaatst op\s*(.*)'),'%b %d, %Y, %I:%M %p')
+        item['n54ID'] = response.url.split("/")[-2]
+        item['n54URL'] = response.url
+        item['parentID'] = response.meta['parentID']
+
+        children = response.xpath('//table[@cellspacing=1]//td[not(contains(.,"\xa0"))]//a/@href').extract()
+
+        yield item
+
+        for child in children:
+            request = scrapy.Request(child, callback=self.process_children)
+            request.meta['parentID'] = item['n54ID']
+            yield request
+
