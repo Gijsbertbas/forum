@@ -66,7 +66,7 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 
 ITEM_PIPELINES = {
-    'forumscrape.pipelines.ForumPipeline': 300,
+#    'forumscrape.pipelines.ForumPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

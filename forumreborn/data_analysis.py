@@ -66,8 +66,6 @@ for hour in range(24):
     print('%i posts tussen %i en %i uur' % (ForumMessageModel.objects.filter(timestamp__hour=hour).count(),hour,hour+1))
 
 ERRORS:
-index pages 50 -100: error 1235250521
-index pages 110-200: gave 16 errors (don't know which)
 table issues example: proefschrift 1303996779
 repeated text: 1145277452
 

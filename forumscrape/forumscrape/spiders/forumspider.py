@@ -5,6 +5,33 @@ from datetime import datetime
 import os
 from forum.models import ForumMessageModel
 
+class ForumCorrectSpider(scrapy.Spider):
+    name = 'correctforum'
+    start_urls = ['http://www.network54.com/Forum/95272']
+    download_timeout = 20
+
+    def parse(self, response):
+        yield scrapy.FormRequest.from_response(
+            response,
+            formdata={'username': os.environ['FORUMUSER'], 'password': os.environ['FORUMPASSWORD']},
+            callback=self.after_login
+        )
+
+    def after_login(self, response):
+
+        for inst in ForumMessageModel.objects.all():
+            request = scrapy.Request(inst.n54URL, callback=self.reload_body)
+            request.meta['inst'] = inst
+            yield request
+
+    def reload_body(self, response):
+
+        post = response.meta['inst']
+        post.body = ''.join(response.xpath('//div[@class="intelliTxt KonaBody"]').extract())
+        post.save()
+        
+        return
+
 class ForumLoginSpider(scrapy.Spider):
     name = 'scrapeforum'
     start_urls = ['http://www.network54.com/Forum/95272']
@@ -18,8 +45,8 @@ class ForumLoginSpider(scrapy.Spider):
         )
 
     def after_login(self, response):
-        indices = [127,146,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,235,237,241,243,244,245,246,247,248,249]
-        for i in indices:#range(300,350):
+        indices = [243,244,245,246,247,248,249]
+        for i in indices: #range(300,350):
             yield scrapy.Request('http://www.network54.com/Forum/95272/page-%s' % i, callback=self.get_parents)
 
     def get_parents(self, response):
