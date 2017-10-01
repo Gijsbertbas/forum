@@ -17,9 +17,7 @@
    <h1 style="font-size:100%;padding:0px;margin:0px;">{{ post.title }}</h1>door {{ post.author }}<br>prinsen
    <P>
    </center>
-    <div class="intelliTxt KonaBody">
      {% autoescape off %}{{ post.body }}{% endautoescape %}
-    </div>
    <P>
    <center>
    <i>Geplaatst op {{ post.timestamp|date:"l d b, Y, H:i" }}</i>
