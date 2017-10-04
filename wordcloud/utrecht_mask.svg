@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--  Source: CBS (Centraal Bureau voor de Statistiek / Kadaster, Emmen, 2008). Integrated by Michiel1972. -->
+
+<!--  Gemeentenaam: Utrecht -->
+
+<!--  Wijknaam: Wijk 08 Zuidwest -->
+
+<!--  Buurtnaam: Dichterswijk -->
+
+<!--  Buurtcode: BU03440865 -->
+
+<!--  Inwoneraantal 2008: 4760 -->
+
+<!--  Oppervlakte totaal (ha): 91-->
+
+<!--  Oppervlakte land (ha): 87 -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="300pt"
+   height="300pt"
+   viewBox="0 0 500 500"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="utrecht_mask_re.svg">
+  <metadata
+     id="metadata262">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1301"
+     inkscape:window-height="744"
+     id="namedview260"
+     showgrid="false"
+     inkscape:zoom="1.3504346"
+     inkscape:cx="142.08159"
+     inkscape:cy="191.81913"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs22" />
+  <clipPath
+     id="SVG_CP_1">
+    <path
+       d="M505,0L0,0L0,505L505,505L505,0z"
+       id="path5" />
+  </clipPath>
+  <g
+     transform="matrix(26.584023,0,0,26.584023,-6757.0832,-5438.1537)"
+     id="cbs_gemeenten_2009"
+     style="fill:#000000;fill-opacity:1">
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 259.16258,209.56526 0.36,0.41389 0.009,0 0.108,0 0.477,-0.95375 0.477,-0.59385 0,-0.009 0.009,-0.027 0.162,-0.16196 1.07999,0.97175 0.063,0.054 0.711,-0.59385 0.11699,0.24294 0.054,-0.036 0.288,-0.18895 0.018,-0.018 0.954,-1.18769 0.95399,0.71081 0.072,0.027 0.288,0.09 0.234,-0.47687 1.55699,1.19669 0.018,0.009 1.16999,0.46788 0.36,0 0.234,0.11697 0.126,0.24293 0,0.35091 0.117,0.60285 0.95399,0.47688 -0.009,0.009 -0.46799,1.17869 0.34199,0.45889 0.018,0.018 0.477,0.11697 1.071,0.12597 0.117,-0.12597 0.11699,0 0.243,0.12597 0.36,0.82779 0.234,0.12596 0.117,1.07073 -0.117,0 -0.92699,0.23394 -0.027,0 -0.234,-0.23394 -0.603,-0.11697 -0.711,0 -0.054,0.045 -0.063,0.072 -0.47699,0.83679 0.117,0.35091 0.207,0.21594 0.027,0.027 -0.027,0.27893 -0.09,0.7918 -0.459,0.23394 -0.018,0.009 -0.117,0.11697 -0.477,0.47687 -1.54799,-0.3599 -0.126,0 -0.225,-0.09 -0.369,-0.14396 -0.47699,-0.24294 -0.063,0.18895 -0.297,0.88177 -0.135,0.072 -0.099,0.054 -0.117,-0.47688 -0.459,-0.79179 -0.018,-0.045 -0.234,-0.045 -0.36899,-0.072 -1.188,-0.24294 -0.35999,0 -0.477,0.95376 -0.108,0.42289 -0.009,0.054 0,1.31367 -0.009,0.045 -0.108,1.86252 -0.126,0.11697 -0.711,-0.47688 -0.045,-0.072 -0.43199,-0.62984 0,-0.009 -0.594,-1.07972 -0.837,-0.95376 -0.117,-0.71081 -0.47699,0 -0.36,-0.71982 0.117,-0.11697 -0.108,-0.045 -1.43999,-0.54886 0.117,-0.95375 0.207,-0.51287 0.018,-0.054 0.018,-0.027 0.108,-1.23268 0.009,-0.081 -0.83699,-0.35991 -0.099,-0.18895 0,-0.009 -0.018,-0.036 -0.36,-1.07972 -1.07099,0.12596 -0.207,-0.31492 -0.036,-0.045 0.243,-0.47688 0.36,-0.35991 0,-0.47688 -0.243,-0.23394 -0.117,-0.35991 -0.477,-0.71981 0.36,-0.95376 0.95399,-0.35091 0,-0.3599 0.711,-0.47688 0.036,-0.027 0.68399,-0.44989 0.234,0.71082 0.594,1.07972 0.009,0.009 0.468,0.58485 0.063,0.018 0.297,0.099 0.35999,0.42289"
+       id="path8"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.11;stroke-linejoin:round;stroke-miterlimit:10" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 258.80259,209.14237 0.71999,0.83678 0.009,0 0.108,0 0.477,-0.95375 0.441,-0.55786"
+       id="path10"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 262.71756,208.87244 0.018,0.036 0.054,-0.036 0.288,-0.18895 0.018,-0.018 0.954,-1.18769 0.80099,0.60284"
+       id="path12"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 267.10954,208.98941 0.045,0.036 0.018,0.009 1.16999,0.46788 0.36,0 0.234,0.11697 0.126,0.24293 0,0.35091 0.081,0.4049"
+       id="path14"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 269.92653,212.84042 0.072,0.099 0.018,0.018 0.477,0.11697 1.071,0.12597 0.117,-0.12597 0.11699,0 0.243,0.12597 0.288,0.66583"
+       id="path16"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 271.41152,215.21581 -0.567,-0.10797 -0.711,0 -0.054,0.045 -0.063,0.072 -0.47699,0.83679 0.117,0.35091 0.144,0.15296"
+       id="path18"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 268.29753,218.47298 -1.14299,-0.26993 -0.126,0 -0.225,-0.09 -0.369,-0.14396 -0.47699,-0.24294 -0.063,0.18895 -0.099,0.31492"
+       id="path20"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 264.10356,217.47423 -1.125,-0.22494 -0.35999,0 -0.477,0.95376 -0.099,0.41389"
+       id="path22"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 261.92557,221.61317 -0.018,0.28793 -0.126,0.11697 -0.711,-0.47688 -0.045,-0.072 -0.43199,-0.62984 0,-0.009 -0.405,-0.71981"
+       id="path24"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 258.50559,217.96911 -0.297,-0.60285 0.117,-0.11697 -0.108,-0.045 -1.43999,-0.54886 0.063,-0.49487"
+       id="path26"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 256.7236,213.56923 -0.306,-0.13496 -0.099,-0.18895 0,-0.009 -0.018,-0.036 -0.36,-1.07972 -1.07099,0.12596 -0.108,-0.16196"
+       id="path28"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 254.57261,209.53827 -0.18,-0.27893 0.36,-0.95376 0.95399,-0.35091 0,-0.3599 0.225,-0.15296"
+       id="path30"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+    <path
+       clip-path="url(#SVG_CP_1)"
+       stroke-miterlimit="10"
+       d="m 257.75859,208.05365 0.207,0.3779 0.009,0.009 0.468,0.58485 0.063,0.018 0.297,0.099"
+       id="path32"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-width:0.013;stroke-linejoin:round;stroke-miterlimit:10;fill-opacity:1" />
+  </g>
+</svg>
