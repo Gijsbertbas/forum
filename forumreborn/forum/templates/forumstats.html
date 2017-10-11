@@ -44,12 +44,20 @@ Hun zijn niet gaaf
    <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ><b>{{posts}}</b></font></td>
   </tr>
   <tr>
+   <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >Totaal aantal posters: </font></td>
+   <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ><b>{{authors}}</b></font></td>
+  </tr>
+  <tr>
+   <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >&nbsp;</font></td>
+   <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ><b>&nbsp;</b></font></td>
+  </tr>
+  <tr>
    <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >
 
 <form action="stats" method="post">
   {% csrf_token %}
-  <label for="woord">Check hoe vaak een woord voorkomt:</label>
-  <input type="text" name="woord" id="woord" value="Prins" />
+  <label for="woord">Check hoe vaak een keywoord voorkomt:</label>
+  <input type="text" name="woord" id="woord" value="<keywoord>" />
   <input type="submit" value="check!"/>
 </form>
 

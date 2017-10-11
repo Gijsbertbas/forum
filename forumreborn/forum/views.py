@@ -58,6 +58,7 @@ class StatsView(TemplateView):
         context['title'] = self.title
         context['baarden'] = ForumMessageModel.get_root_nodes().count()
         context['posts'] = ForumMessageModel.objects.all().count()
+        context['authors'] = ForumMessageModel.objects.order_by().values('author').distinct().count()
         return context
 
     def get(self, request, *args, **kwargs):

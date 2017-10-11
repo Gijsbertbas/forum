@@ -58,6 +58,16 @@ def recolorplot(ax, color='#FF9900'):
     ax.xaxis.label.set_color(color)
     ax.title.set_color(color)
 
+def recolorhist(ax, color='#FF9900'):
+    ax.spines['bottom'].set_color('none')
+    ax.spines['top'].set_color(color)
+    ax.spines['right'].set_color('none')
+    ax.spines['left'].set_color(color)
+    ax.tick_params(axis='x', colors=color)
+    ax.tick_params(axis='y', colors=color)
+    ax.yaxis.label.set_color(color)
+    ax.xaxis.label.set_color(color)
+    ax.title.set_color(color)
 
 def forumperweek():
     perweek = loadpickle()['perweek']
@@ -98,10 +108,11 @@ def forumhistogram():
     for p in ppp:
         ds[p[0]] = p[1]
 
-    ax = ds.plot.barh(color='#FF9900')
-    recolorplot(ax)
-    plt.xlim([0,7700])
-    plt.savefig('posthistogram.svg')
+    ax = ds.plot.barh(color='white')
+    recolorhist(ax, color='white')
+    plt.xlim([0,8000])
+    ax.xaxis.tick_top()
+    plt.savefig('posthistogram.svg', transparent=True)
     plt.close()
 
     ppa = loadpickle()['postsperauthor']
@@ -112,10 +123,11 @@ def forumhistogram():
         ds[a['author']] = a['count']
 
     plt.figure()
-    ax = ds.plot.barh(color='#FF9900')
-    recolorplot(ax)
-    plt.xlim([0,7700])
-    plt.savefig('posthistograma.svg')
+    ax = ds.plot.barh(color='white')
+    recolorhist(ax, color='white')
+    plt.xlim([0,8000])
+    ax.xaxis.tick_top()
+    plt.savefig('posthistograma.svg', transparent=True)
     plt.close()
 
 '''
