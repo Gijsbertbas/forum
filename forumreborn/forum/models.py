@@ -10,6 +10,7 @@ class ForumMessageModel(MP_Node):
     n54ID = models.IntegerField()
     n54URL = models.URLField(max_length=200)
     parentID = models.IntegerField(null=True)
+    bodylen = models.IntegerField(null=True)
 
     node_order_by = ['timestamp']
 

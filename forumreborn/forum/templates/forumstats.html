@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html lang="nl">
+<head>
+    <title>{{title}}</title>
+</head>
+
+<body bgcolor="FF9900" text="000000" link="0000ff" vlink="990000">
+
+<br>
+<center>
+ <h1 style="font-size:100%;padding:0px;margin:0px">
+  <font face="century gothic"  size="+1" >
+   gaaf forum : statistieken
+  </font>
+ </h1>
+</center>
+
+<br />
+Hun zijn niet gaaf
+<center>
+ <table cellpadding=5>
+  <tr>
+   <td align=center><font face="century gothic"  size="+1" >Statistieken voor alle berichten tussen 2001 en 2014</font></td>
+  </tr>
+ </table>
+</center>
+
+<br>
+
+<BR>
+<center>
+ <table width=70% border=0 cellspacing=1 cellpadding=3>
+  <tr>
+   <td bgcolor=9966FF align=center width=70%><b><font face="century gothic"  size="-1" >&nbsp</font></b></td>
+   <td bgcolor=9966FF align=center width=30%><b><font face="century gothic"  size="-1" >&nbsp</font></b></td>
+  </tr>
+  <tr>
+   <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >Totaal aantal baarden: </font></td>
+   <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ><b>{{baarden}}</b></font></td>
+  </tr>
+  <tr>
+   <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >Totaal aantal posts: </font></td>
+   <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ><b>{{posts}}</b></font></td>
+  </tr>
+  <tr>
+   <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >
+
+<form action="stats" method="post">                                                             
+  {% csrf_token %}
+  <label for="woord">Check hoe vaak een woord voorkomt:</label>
+  <input type="text" name="woord" id="woord" default="Prins" />
+  <input type="submit" label="check!"/>
+</form>
+
+</font></td>
+   <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ></font></td>
+  </tr>
+  <tr>
+   <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >Totaal aantal posts met het woord "<b>{{woord}}</b>": </font></td>
+   <td bgcolor=EEEEEE width=30% align=center><font face="century gothic"  size="-1" ><b>{{woordcount}}</b></font></td>
+  </tr>
+ </table>
+</center>
+
+<p>
+<center>
+ <table width=70% border=0 cellspacing=1 cellpadding=3>
+  <tr>
+    <img src="{% static '/forum/posthistograma.svg' %}" />
+  </tr>
+ </table>
+</center>
+
+<p>
+<center>
+<table border=0 width=60%>
+<tr>
+    <td align=center><font face="century gothic"  size="-1" >
+    <a href={% url 'index' 1 %}>TERUG NAAR FORUM</a>
+    <p></font>
+    </td>
+</tr>
+</table>
+
+
+<table border="0" cellPadding="0" cellSpacing="0" width=580>
+<tr>
+    <td width="140" valign="bottom"></td><td valign="bottom" nowrap><font color="#666666" size="-2">
+    &nbsp;Copyright
+    &copy;1999-2017
+    <font color=#666666 size=-2>Network54 and gijsbertbas</font>.
+    All rights reserved. &nbsp;&nbsp;</font>
+    <font color=#666666 size=-2>
+    Terms of Use </font>&nbsp;&nbsp;
+    <font color=#666666 size=-2>
+    Privacy Statement</font>
+    <font color=#666666 size=-2>&nbsp;&nbsp;</font>
+    </td>
+</tr>
+</table>
+<p>
+Die gast is altijd gaaf!</font>
+
+</center>
+</body>
+
+</html>

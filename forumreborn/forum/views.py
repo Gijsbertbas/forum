@@ -47,3 +47,27 @@ class MessageView(TemplateView):
     def get(self,request,*args,**kwargs):
         context = self.get_context_data()
         return super(TemplateView, self).render_to_response(context)
+
+class StatsView(TemplateView):
+
+    template_name = 'forumstats.html'
+    title = "De Prinsen! statistieken"
+
+    def get_context_data(self, **kwargs):
+        context = super(StatsView, self).get_context_data(**kwargs)
+        context['title'] = self.title
+        context['baarden'] = ForumMessageModel.get_root_nodes().count()
+        context['posts'] = ForumMessageModel.objects.all().count()
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        context['woord'] = 'Prins'
+        context['woordcount'] = ForumMessageModel.objects.filter(body__contains='Prins').count()
+        return super(TemplateView, self).render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        context['woord'] = request.POST['woord']
+        context['woordcount'] = ForumMessageModel.objects.filter(body__icontains=context['woord']).count()
+        return super(TemplateView, self).render_to_response(context)

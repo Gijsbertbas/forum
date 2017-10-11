@@ -4,6 +4,7 @@ from forumscrape.items import ForumDjangoItem, ForumMissingItem
 from datetime import datetime
 import os
 from forum.models import ForumMessageModel
+import re
 
 class ForumCorrectSpider(scrapy.Spider):
     name = 'correctforum'
@@ -27,7 +28,9 @@ class ForumCorrectSpider(scrapy.Spider):
     def reload_body(self, response):
 
         post = response.meta['inst']
-        post.body = ''.join(response.xpath('//div[@class="intelliTxt KonaBody"]').extract())
+        body = ''.join(response.xpath('//div[@class="intelliTxt KonaBody"]').extract())
+        post.body = re.sub('<!-- google_ad_section_end -->','',body[65:-6]) # remove div and google tags
+        post.bodylen = len(post.body)
         post.save()
         
         return
