@@ -46,11 +46,11 @@ Hun zijn niet gaaf
   <tr>
    <td bgcolor=EEEEEE width=70%><font face="century gothic"  size="-1" >
 
-<form action="stats" method="post">                                                             
+<form action="stats" method="post">
   {% csrf_token %}
   <label for="woord">Check hoe vaak een woord voorkomt:</label>
-  <input type="text" name="woord" id="woord" default="Prins" />
-  <input type="submit" label="check!"/>
+  <input type="text" name="woord" id="woord" value="Prins" />
+  <input type="submit" value="check!"/>
 </form>
 
 </font></td>
