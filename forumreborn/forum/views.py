@@ -1,6 +1,9 @@
 from django.views.generic.base import TemplateView
+#from django.templatetags.static import static
+from django.conf import settings
 from forum.models import ForumMessageModel
 from random import randint
+import pickle
 
 class IndexView(TemplateView):
 
@@ -59,6 +62,7 @@ class StatsView(TemplateView):
         context['baarden'] = ForumMessageModel.get_root_nodes().count()
         context['posts'] = ForumMessageModel.objects.all().count()
         context['authors'] = ForumMessageModel.objects.order_by().values('author').distinct().count()
+        context['prinsennamen'] = pickle.load(open(settings.STATIC_ROOT+'/forum/forumfacts.pickle','rb'))['prinsennamen']
         return context
 
     def get(self, request, *args, **kwargs):

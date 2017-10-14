@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 #'6m0j$ndc!t%=%$+-x%80v$4_*j+u!z=z10mk45m_n6=dlzo&-@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -126,6 +126,6 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static') # for production
 STATICFILES_DIRS = [
-            os.path.join(BASE_DIR, 'forum', 'static'),
+#            os.path.join(BASE_DIR, 'forum', 'static'),
             ] # additional folders for django to find static files
 
