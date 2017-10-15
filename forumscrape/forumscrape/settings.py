@@ -21,6 +21,12 @@ NEWSPIDER_MODULE = 'forumscrape.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+#
+# Comment:
+# Settings for 'friendly' scraping.
+# I played a bit whith this and the following settings to see if scraping could be any faster.
+# Realised at the end of the project that what took long was adding a 'root item' to the django model tree.
+#
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 CONCURRENT_REQUESTS = 32
 
@@ -66,7 +72,7 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 
 ITEM_PIPELINES = {
-#    'forumscrape.pipelines.ForumPipeline': 300,
+    'forumscrape.pipelines.ForumPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,7 +97,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Allow connecting to my django project
-# See 
+# See https://github.com/scrapy-plugins/scrapy-djangoitem
 
 import sys
 sys.path.append('/home/gijsbertbas/Python/forum/forumreborn')

@@ -8,7 +8,7 @@ import pickle
 class IndexView(TemplateView):
 
     template_name = 'forumindex.html'
-    title = "De Prinsen! reborn"
+    title = "De Prinsen!"
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
@@ -34,7 +34,7 @@ class IndexView(TemplateView):
 class MessageView(TemplateView):
 
     template_name = 'forummessage.html'
-    title = "De Prinsen! reborn: post"
+    title = "De Prinsen! post"
 
     def get_context_data(self, **kwargs):
         context = super(MessageView, self).get_context_data(**kwargs)
@@ -51,13 +51,13 @@ class MessageView(TemplateView):
         context = self.get_context_data()
         return super(TemplateView, self).render_to_response(context)
 
-class StatsView(TemplateView):
+class FactsView(TemplateView):
 
-    template_name = 'forumstats.html'
-    title = "De Prinsen! statistieken"
+    template_name = 'forumfacts.html'
+    title = "De Prinsen! facts en figures"
 
     def get_context_data(self, **kwargs):
-        context = super(StatsView, self).get_context_data(**kwargs)
+        context = super(FactsView, self).get_context_data(**kwargs)
         context['title'] = self.title
         context['baarden'] = ForumMessageModel.get_root_nodes().count()
         context['posts'] = ForumMessageModel.objects.all().count()

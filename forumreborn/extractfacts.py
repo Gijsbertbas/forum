@@ -4,7 +4,7 @@ extracting some interesting facts and figures from the database
 run from within django shell with:
 exec(open("extractfacts.py").read())
 
-This script saves all items as a list of lists/dictionaries/dataframes in a pickle file.
+This script saves all items as a dictionary in a pickle file.
 To be used for graphics later.
 '''
 from django.db.models import Count, Max #,Q
@@ -13,6 +13,21 @@ import operator
 import pickle
 import math
 import pandas as pd
+import re
+
+def forumpoststofile():
+    output = open('../forumillustrations/posts.dat','a')
+    for post in ForumMessageModel.objects.all():
+        output.write(post.body)
+    output.close()
+
+    # remove all html tags and end-of-line statements
+    text = open('../forumillustrations/posts.dat').read()
+    text = re.sub('<([^<>]+)>','',text)
+    text = re.sub('\n','',text)
+    with open('../forumillustrations/posts.dat','w') as output:
+        output.write(text)
+
 
 # TOTALS:
 def forumtotals():
@@ -74,6 +89,19 @@ def forumpickle():
     forumfacts['perweek'] = forumperweek()
     forumfacts['postsperauthor'], forumfacts['postsperprins'],forumfacts['prinsennamen'] = forumperperson()
 
-    with open('../wordcloud/forumfacts.pickle', 'wb') as pc:
+    with open('forum/static/forum/forumfacts.pickle', 'wb') as pc:
         pickle.dump(forumfacts,pc)
 
+'''
+REGEX FOR URLS
+seems to work: '(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?'
+alternative: 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+
+GRAPPIG:
+1032350845
+1019404061 : lycos mail geeft wel 15 MB !! mailbox
+1142343754 : jc namen suggesties
+1008843377 : statistieken met in de baard melding dat R en mart te weinig posten
+980431599 : boogie en folkert (goof!) verdedigen Mart
+1065687101 : gratis internet bij de mediamarkt 2003
+'''

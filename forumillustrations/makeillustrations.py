@@ -7,31 +7,15 @@ import random
 import pandas as pd
 import pickle
 
-# FOR WORDCLOUD
-# ideas: orange instead of grey, vector format output?, test size and number of words
-def postswordcloud(reload=False):
+def forumwordcloud():
 
     def orange_color_func(word, font_size, position, orientation, random_state=None, **kwargs):
-        return "hsl(30, %d%%, 50%%)" % random.randint(60, 100)
+        return "hsl(30, %d%%, 50%%)" % random.randint(60, 100) # forum orange #FF9900; HSL 36,100,50
 
     def orange_white_color_func(word, font_size, position, orientation, random_state=None, **kwargs):
-        return "hsl(36, 100%%, %d%%)" % random.randint(80, 100) # forum orange hsl 36,100,50
+        return "hsl(36, 100%%, %d%%)" % random.randint(80, 100) # forum orange #FF9900; HSL 36,100,50
 
-    if reload:
-        from forum.models import ForumMessageModel
-        output = open('posts.dat','a')
-        for post in ForumMessageModel.objects.all():
-            output.write(post.body[65:-36])
-        output.close()
-
-        text = open('posts.dat').read()
-        text = re.sub('<([^<>]+)>','',text)
-        text = re.sub('\n','',text)
-        with open('posts.dat','w') as output:
-            output.write(text)
-    else:
-        text = open('posts.dat').read()
-        
+    text = open('posts.dat').read()
     stops = set(open('stopwords.txt').read().splitlines())
     mask = np.array(Image.open('utrecht_mask.png'))
     
@@ -161,15 +145,3 @@ def forumhistogram():
     fig.subplots_adjust(left=.15)
     plt.savefig('posthisttop20.svg', dpi=150, transparent=True, bbox_inches='tight')
     plt.close()
-
-'''
-    plt.axis('off')
-
-for prins in prinsennamen:
-    for ps in prins['pseudoniemen']:
-        try:
-            posterslist.remove(ps)
-        except:
-            print('not in')
-str(round(p.get_width()*100/total,0))+'%'
-'''
