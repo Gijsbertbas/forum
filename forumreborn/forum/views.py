@@ -62,7 +62,7 @@ class FactsView(TemplateView):
         context['baarden'] = ForumMessageModel.get_root_nodes().count()
         context['posts'] = ForumMessageModel.objects.all().count()
         context['authors'] = ForumMessageModel.objects.order_by().values('author').distinct().count()
-        context['prinsennamen'] = pickle.load(open(settings.STATIC_ROOT+'/forum/forumfacts.pickle','rb'))['prinsennamen']
+        context['prinsennamen'] = pickle.load(open(settings.STATIC_ROOT+'/forum/prinsennamen.pickle','rb'))
         return context
 
     def get(self, request, *args, **kwargs):
