@@ -1,6 +1,7 @@
 # Forum #
-This is a little private hobby project using Scrapy and Django to rebuild the message board of 'de Prinsen'. 
+This is a little **private** hobby project using Scrapy and Django to rebuild the message board of 'de Prinsen'. 
 
+*the original*
 ![Screenshot of the original](forumillustrations/forumoriginal.jpg)
 
 ### Objective ###
@@ -15,6 +16,7 @@ This is the scrapy project to download and store all posts in a database. I had 
 ## Forumreborn ##
 This is the Django project which rebuilds the site. I implemented an MP-tree from django treebeard project. In here you also find extractfacts.py which saves some summarizing data into a pickle file.
 
+*the rebuild*
 ![Screenshot of the rebuild](forumillustrations/forumreborn.jpg)
 
 ## Forumillustrations ##
@@ -34,4 +36,4 @@ I installed the following packages in my conda environment
 * pillow==4.2.1
 * python==3.5.4
 * scrapy==1.3.3
-* wordcloud==1.3.1 (as mentioned above)
+* wordcloud==1.3.1 *(as described above)*
