@@ -7,7 +7,7 @@ exec(open("extractfacts.py").read())
 This script saves all items as a dictionary in a pickle file.
 To be used for graphics later.
 '''
-from django.db.models import Count, Max #,Q
+from django.db.models import Count, Max, Sum #,Q
 from forum.models import ForumMessageModel
 import operator
 import pickle
@@ -39,7 +39,7 @@ def forumtotals():
 
 # TOP 10 POSTERS:
 def forumperperson():
-    postspauthor = ForumMessageModel.objects.values('author').annotate(count=Count('author')).order_by('-count')
+    postspauthor = ForumMessageModel.objects.values('author').annotate(count=Count('author'), length=Sum('bodylen')).order_by('-count')
 
     prinsennamen = []
     prinsennamen.append({'naam': 'F', 'pseudoniemen': ['F','Folkert','f','goof','F`','fdboer','folkert','Goof','Goov','gahast!','goov','F de sloperd','gast']})
@@ -54,15 +54,20 @@ def forumperperson():
     prinsennamen.append({'naam': 'mart', 'pseudoniemen': ['mart','Mart','MArt','M','m','MART','Marty pooper','Marrrrrrrt','Martuary','harryhardcore','mART','MART the anonymous','M^art','Mart de econoom','Mart goes vietnam','Mrt','Mrtr','Prins MArt','Prins Mart','mart de enterpeneur','marto','marty','martyparty','sMART']})
 
     postspprins = {}
+    averagelength = {}
     for prins in prinsennamen:
         posts=0
+        totallength=0
         for item in postspauthor:
             if item['author'] in prins['pseudoniemen']:
                 posts+=item['count']
+                totallength+=item['length']
         postspprins[prins['naam']] = posts
+        averagelength[prins['naam']] = totallength/posts
     postspprins = sorted(postspprins.items(), key=operator.itemgetter(1), reverse=True)
+    averagelength = sorted(averagelength.items(), key=operator.itemgetter(1), reverse=True)
     
-    return postspauthor[:], postspprins, prinsennamen
+    return postspauthor[:], postspprins, averagelength, prinsennamen
 
 def forumperhour():
     perhour=pd.DataFrame(index=range(24))
@@ -87,9 +92,10 @@ def forumpickle():
     forumfacts['totals'] = forumtotals()
     forumfacts['perhour'] = forumperhour()
     forumfacts['perweek'] = forumperweek()
-    forumfacts['postsperauthor'], forumfacts['postsperprins'],forumfacts['prinsennamen'] = forumperperson()
+    forumfacts['postsperauthor'], forumfacts['postsperprins'], \
+    forumfacts['averagepostlength'],forumfacts['prinsennamen'] = forumperperson()
 
-    with open('forum/static/forum/forumfacts.pickle', 'wb') as pc:
+    with open('../forumillustrations/forumfacts.pickle', 'wb') as pc:
         pickle.dump(forumfacts,pc)
 
 '''

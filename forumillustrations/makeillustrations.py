@@ -116,9 +116,9 @@ def forumhistogram():
 
     fig = plt.figure(figsize=(10,7.5))
     ax = ds.plot.barh(color='white')
-    total = loadpickle('totals')['posts']
+    total = float(loadpickle('totals')['posts'])
     for p in ax.patches:
-        ax.annotate('%i%%' % int(p.get_width()*100/total), (50, p.get_y() + .18), color='#FF9900')
+        ax.annotate('%.0f%%' % (p.get_width()/total*100), (50, p.get_y() + .18), color='#FF9900')
     recolorhist(ax, color='white')
     plt.xlim([0,8000])
     plt.xlabel('Totaal aantal posts per prins')
