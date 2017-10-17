@@ -18,10 +18,10 @@ def forumwordcloud():
     text = open('posts.dat').read()
     stops = set(open('stopwords.txt').read().splitlines())
     mask = np.array(Image.open('utrecht_mask.png'))
-    
-    wc = WordCloud( background_color='white', 
-                    max_words=2000, 
-                    mask=mask, 
+
+    wc = WordCloud( background_color='white',
+                    max_words=2000,
+                    mask=mask,
                     stopwords=stops,
                     max_font_size=40,
                     scale=3,
@@ -80,7 +80,7 @@ def forumperweek():
     recolorlineplot(ax,color='white')
     plt.savefig('perweek.svg', dpi=150, transparent=True, bbox_inches='tight')
     plt.close()
-    
+
 def forumperhour():
     perhour = loadpickle('perhour')
 
@@ -92,7 +92,7 @@ def forumperhour():
     recolorlineplot(ax1,color='white')
     plt.savefig('perhour.svg', dpi=150, transparent=True, bbox_inches='tight')
     plt.close()
-    
+
     for column in perhour.columns:
         perhour.loc[:,column] = perhour.loc[:,column]/perhour.loc[:,column].max()
 
@@ -108,11 +108,12 @@ def forumperhour():
 
 def forumhistogram():
     ppp = loadpickle('postsperprins')
-    ppp.reverse()
+    #ppp.reverse()
 
     ds = pd.Series()
     for p in ppp:
         ds[p[0]] = p[1]
+    ds.sort_values()
 
     fig = plt.figure(figsize=(10,7.5))
     ax = ds.plot.barh(color='white')
@@ -129,14 +130,16 @@ def forumhistogram():
     plt.close()
 
     ppa = loadpickle('postsperauthor')
-    ppa.reverse()
+    #ppa.reverse()
+    df = pd.DataFrame.from_dict(ppa).set_index('author')
 
-    ds = pd.Series()
-    for a in ppa[-20:]:
-        ds[a['author']] = a['count']
+    #ds = pd.Series()
+    #for a in ppa[-20:]:
+    #    ds[a['author']] = a['count']
 
     fig = plt.figure(figsize=(10,7.5))
-    ax = ds.plot.barh(color='white')
+    #ax = ds.plot.barh(color='white')
+    ax = df.iloc[:20,0].sort_values(ascending=True).plot.barh(color='white')
     recolorhist(ax, color='white')
     plt.xlim([0,8000])
     plt.xlabel('aantal posts voor de top 20 posters')
