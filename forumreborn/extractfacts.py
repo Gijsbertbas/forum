@@ -4,14 +4,13 @@ extracting some facts and figures from the database
 run from DJANGO SHELL with:
 exec(open("extractfacts.py").read())
 
-This script saves all items as a dictionary in a pickle file.
-To be used for graphics later.
+this script saves all items as a dictionary in a pickle file.
+to be used for graphics later.
 '''
-from django.db.models import Count, Max, Sum #,Q
+from django.db.models import Count, Max, Sum
 from forum.models import ForumMessageModel
 import pickle
 import math
-import pandas as pd
 import re
 
 def forumpoststofile():
@@ -52,30 +51,12 @@ def forumperperson():
     prinsennamen.append({'naam': 'B', 'pseudoniemen': ['B','bert','Bert','b','gijs','gb','le B','GB','Gijs','Gijsbert','gijsbert','le bert','le b','Bertus','G','le Bert','B.','bertus','glb','leB','bert','Cheis','Gb','Gijbert','Gijs B','Gijsbert bastiaan straathof','don gijs','gbs','gijsb','gis','glijs','lebert','ome bertus']})
     prinsennamen.append({'naam': 'mart', 'pseudoniemen': ['mart','Mart','MArt','M','m','MART','Marty pooper','Marrrrrrrt','Martuary','harryhardcore','mART','MART the anonymous','M^art','Mart de econoom','Mart goes vietnam','Mrt','Mrtr','Prins MArt','Prins Mart','mart de enterpeneur','marto','marty','martyparty','sMART']})
 
-    '''
-    postspprins = {}
-    averagelength = {}
-    for prins in prinsennamen:
-        posts=0
-        totallength=0
-        for item in postspauthor:
-            if item['author'] in prins['pseudoniemen']:
-                posts+=item['count']
-                totallength+=item['length']
-        postspprins[prins['naam']] = posts
-        averagelength[prins['naam']] = totallength/posts
-    postspprins = sorted(postspprins.items(), key=operator.itemgetter(1), reverse=True)
-    averagelength = sorted(averagelength.items(), key=operator.itemgetter(1), reverse=True)
-    '''
     postspprins = []
     for prins in prinsennamen:
-        temp=[]
-
+        temp={}
         posts=0
-        ph={}
         length=0
         for item in postspauthor:
-            ph
             if item['author'] in prins['pseudoniemen']:
                 posts+=item['count']
                 length+=item['totallength']
@@ -95,22 +76,13 @@ def forumperhour():
         perhour.append(ph)
     return perhour
 
-def forumperhour_old():
-    perhour=pd.DataFrame(index=range(24))
-    for year in range(2001,2015):
-        posts = []
-        for hour in range(24):
-            posts.append(ForumMessageModel.objects.filter(timestamp__year=year).filter(timestamp__hour=hour).count())
-        perhour[str(year)]=posts
-    return perhour
-
 def forumperweek():
-    perweek=pd.DataFrame(index=range(1,53))
+    perweek=[]
     for year in range(2001,2015):
-        posts = []
+        pw = {'year':year}
         for week in range(1,53):
-            posts.append(ForumMessageModel.objects.filter(timestamp__year=year).filter(timestamp__week=week).count())
-        perweek[str(year)]=posts
+            pw[week] = ForumMessageModel.objects.filter(timestamp__year=year).filter(timestamp__week=week).count()
+        perweek.append(pw)
     return perweek
 
 def forumpickle():

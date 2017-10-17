@@ -70,35 +70,37 @@ def recolormap(ax, color='#FF9900'):
     ax.title.set_color(color)
 
 def forumperweek():
-    perweek = loadpickle('perweek')
+    pw = loadpickle('perweek')
+    perweek = pd.DataFrame.from_dict(pw).set_index('year')
 
-    fig = plt.figure(figsize=(10,7.5))
-    ax = perweek.sum(axis=1).plot.line(lw=3,c='white')
+    plt.figure(figsize=(10,7.5))
+    ax = perweek.sum(axis=0).plot.line(lw=3,c='white')
     plt.xticks(np.arange(4,50,4),['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'])
-    plt.ylim([0,1.1*perweek.sum(axis=1).max()])
-    plt.title('alle posts per week')
+    plt.ylim([0,1.1*perweek.sum(axis=0).max()])
+    plt.title('posts door het jaar')
     recolorlineplot(ax,color='white')
     plt.savefig('perweek.svg', dpi=150, transparent=True, bbox_inches='tight')
     plt.close()
 
 def forumperhour():
-    perhour = loadpickle('perhour')
+    ph = loadpickle('perhour')
+    perhour = pd.DataFrame.from_dict(ph).set_index('year')
 
     fig1 = plt.figure(figsize=(10,7.5))
-    ax1 = perhour.sum(axis=1).plot.line(lw=3,c='white')
-    plt.ylim([0,1.1*perhour.sum(axis=1).max()])
+    ax1 = perhour.sum(axis=0).plot.line(lw=3,c='white')
+    plt.ylim([0,1.1*perhour.sum(axis=0).max()])
     plt.xlabel('uur')
     plt.title('alle posts per tijdstip')
     recolorlineplot(ax1,color='white')
     plt.savefig('perhour.svg', dpi=150, transparent=True, bbox_inches='tight')
     plt.close()
 
-    for column in perhour.columns:
-        perhour.loc[:,column] = perhour.loc[:,column]/perhour.loc[:,column].max()
+    for year in perhour.index:
+        perhour.loc[year,:] = perhour.loc[year,:]/perhour.loc[year,:].max()
 
     fig2 = plt.figure(figsize=(10,7.5))
-    plt.imshow(perhour, interpolation='spline16', aspect='auto', cmap='Wistia', origin='lower')
-    plt.xticks(np.arange(0,len(perhour.columns),1),perhour.columns)
+    plt.imshow(perhour.transpose(), interpolation='spline16', aspect='auto', cmap='Wistia', origin='lower')
+    plt.xticks(np.arange(0,len(perhour.index),1),perhour.index)
     plt.yticks(np.arange(-0.5,24,1),range(25))
     ax2 = plt.gca()
     recolormap(ax2,'white')
@@ -107,44 +109,45 @@ def forumperhour():
     plt.close()
 
 def forumhistogram():
+    ppa = loadpickle('postsperauthor')
+    df = pd.DataFrame.from_dict(ppa).set_index('author')
+
+    plt.figure(figsize=(10,7.5))
+    ax = df.iloc[:20,0].sort_values(ascending=True).plot.barh(color='white')
+    recolorhist(ax, color='white')
+    plt.xlim([0,8000])
+    plt.xlabel('aantal posts voor de top 20 posters')
+    plt.ylabel('')
+    ax.xaxis.tick_top()
+    ax.xaxis.set_label_position('top')
+    plt.savefig('posthisttop20.svg', dpi=150, transparent=True, bbox_inches='tight')
+    plt.close()
+
     ppp = loadpickle('postsperprins')
-    #ppp.reverse()
+    df = pd.DataFrame.from_dict(ppp).set_index('naam').sort_values(by='posts', ascending=True)
 
-    ds = pd.Series()
-    for p in ppp:
-        ds[p[0]] = p[1]
-    ds.sort_values()
-
-    fig = plt.figure(figsize=(10,7.5))
-    ax = ds.plot.barh(color='white')
+    plt.figure(figsize=(10,7.5))
+    ax = df.loc[:,'posts'].plot.barh(color='white')
     total = float(loadpickle('totals')['posts'])
     for p in ax.patches:
         ax.annotate('%.0f%%' % (p.get_width()/total*100), (50, p.get_y() + .18), color='#FF9900')
     recolorhist(ax, color='white')
     plt.xlim([0,8000])
     plt.xlabel('Totaal aantal posts per prins')
+    plt.ylabel('')
     ax.xaxis.tick_top()
     ax.xaxis.set_label_position('top')
-    fig.subplots_adjust(left=.15)
     plt.savefig('posthistogram.svg', dpi=150, transparent=True, bbox_inches='tight')
     plt.close()
 
-    ppa = loadpickle('postsperauthor')
-    #ppa.reverse()
-    df = pd.DataFrame.from_dict(ppa).set_index('author')
-
-    #ds = pd.Series()
-    #for a in ppa[-20:]:
-    #    ds[a['author']] = a['count']
-
-    fig = plt.figure(figsize=(10,7.5))
-    #ax = ds.plot.barh(color='white')
-    ax = df.iloc[:20,0].sort_values(ascending=True).plot.barh(color='white')
+    plt.figure(figsize=(10,7.5))
+    ax = df.loc[:,'averagepostlength'].plot.barh(color='white')
     recolorhist(ax, color='white')
-    plt.xlim([0,8000])
-    plt.xlabel('aantal posts voor de top 20 posters')
+    plt.xlim([0,450])
+    plt.xlabel('Gemiddelde lengte van alle posts')
+    plt.ylabel('')
     ax.xaxis.tick_top()
     ax.xaxis.set_label_position('top')
-    fig.subplots_adjust(left=.15)
-    plt.savefig('posthisttop20.svg', dpi=150, transparent=True, bbox_inches='tight')
+    plt.savefig('postlenhistogram.svg', dpi=150, transparent=True, bbox_inches='tight')
     plt.close()
+

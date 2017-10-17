@@ -85,7 +85,7 @@ Hun zijn niet gaaf
   {% for prins in prinsennamen %}
   <tr>
    <td bgcolor=EEEEEE width=15%><font face="century gothic"  size="-1" ><b>{{ prins.naam }}</b></font></td>
-   <td bgcolor=EEEEEE width=85% align=center><font face="century gothic"  size="-1" >{% for pseudoniem in prins.pseudoniemen %}{{ pseudoniem}}, {% endfor %}</font></td>
+   <td bgcolor=EEEEEE width=85% align=center><font face="century gothic"  size="-1" >{% for pseudoniem in prins.pseudoniemen %}{{ pseudoniem}}, {% endfor %}...</font></td>
   </tr>
   {% endfor %}
  </table>
@@ -97,6 +97,9 @@ Hun zijn niet gaaf
  <table width=70% border=0 cellspacing=1 cellpadding=3>
   <tr>
     <td align=center><img src="{% static 'forum/posthistogram.svg' %}" />&nbsp;</td>
+  </tr>
+  <tr>
+    <td align=center><img src="{% static 'forum/postlenhistogram.svg' %}" />&nbsp;</td>
   </tr>
   <tr>
     <td align=center><img src="{% static 'forum/forumwordcloud.png' %}" />&nbsp;</td>
