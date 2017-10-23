@@ -37,7 +37,11 @@ def forumtotals():
 
 # TOP 10 POSTERS:
 def forumperperson():
-    postspauthor = ForumMessageModel.objects.values('author').annotate(count=Count('author'), totallength=Sum('bodylen')).order_by('-count')
+    postspauthor = ForumMessageModel.objects.values('author').annotate(
+                    count=Count('author'), 
+                    totallength=Sum('bodylen'),
+                    dead=Count(Case(When(numchild=0, then=1),outputfield=IntegerField()))
+                    ).order_by('-count')
 
     prinsennamen = []
     prinsennamen.append({'naam': 'F', 'pseudoniemen': ['F','Folkert','f','goof','F`','fdboer','folkert','Goof','Goov','gahast!','goov','F de sloperd','gast']})
@@ -56,13 +60,16 @@ def forumperperson():
         temp={}
         posts=0
         length=0
+        alldead=0
         for item in postspauthor:
             if item['author'] in prins['pseudoniemen']:
                 posts+=item['count']
                 length+=item['totallength']
+                alldead+=item['dead']
         temp['naam'] = prins['naam']
         temp['posts'] = posts
         temp['averagepostlength'] = length/posts
+        temp['percentagedead'] = alldead*100/posts
         postspprins.append(temp)
 
     return postspauthor[:], postspprins, prinsennamen

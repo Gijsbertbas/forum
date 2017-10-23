@@ -151,3 +151,16 @@ def forumhistogram():
     plt.savefig('postlenhistogram.svg', dpi=150, transparent=True, bbox_inches='tight')
     plt.close()
 
+    plt.figure(figsize=(10,7.5))
+    ax = df.loc[:,'percentagedead'].plot.barh(color='white')
+    for p in ax.patches:
+        ax.annotate('%.0f%%' % p.get_width(), (1, p.get_y() + .18), color='#FF9900')
+    recolorhist(ax, color='white')
+    plt.xlim([0,50])
+    plt.xlabel('Percentage posts waar vervolgens niemand meer op reageerde...')
+    plt.ylabel('')
+    ax.xaxis.tick_top()
+    ax.xaxis.set_label_position('top')
+    plt.savefig('deaddiscussionshistogram.svg', dpi=150, transparent=True, bbox_inches='tight')
+    plt.close()
+
