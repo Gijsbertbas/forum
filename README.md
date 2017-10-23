@@ -1,26 +1,28 @@
 # Forum #
 This is a little **private** hobby project using Scrapy and Django to rebuild the message board of 'de Prinsen'. 
 
-*the original*
+*the original on [network54.com](http://www.network54.com/)*
 ![Screenshot of the original](forumillustrations/forumoriginal.jpg)
 
 ### Objective ###
-The objectives were:
+My objectives were:
 * Learn how to use Scrapy and practice my Django skills
 * Document this piece of 'nostalgia' in case the original host dies
-* NOT to re-build full functionality (e.g. re-enable posting new messages)
+* NOT to re-build full functionality (e.g. I did not re-enable posting new messages)
 
 ## Forumscrape ##
-This is the scrapy project to download and store all posts in a database. I had to extract the tree structure of the forum and save it using django-items.
+This is the scrapy project to download and store all posts in a sqlite database. I had to capture the tree structure of the forum discussions. I saved it using the [djangoitem extension](https://github.com/scrapy-plugins/scrapy-djangoitem).
+
+I captured the forum structure into a Materialized Path tree implementation using the [django treebeard](https://pypi.python.org/pypi/django-treebeard) library. Towards the end of the scraping job I realized that adding a new root node took a long time. This slowed down running the spider considerably. I did not investigate further why this was.
 
 ## Forumreborn ##
-This is the Django project which rebuilds the site. I implemented an MP-tree from django treebeard project. In here you also find extractfacts.py which saves some summarizing data into a pickle file.
+This is the Django project which rebuilds the site. In here you also find extractfacts.py which saves some summarizing data into a pickle file.
 
 *the rebuild*
 ![Screenshot of the rebuild](forumillustrations/forumreborn.jpg)
 
 ## Forumillustrations ##
-This folder contains some code to make figures for the 'facts 'n figures' page. Figures are created using pandas/matplotlib and the excellent [wordcloud package by amueller](https://github.com/amueller/word_cloud).
+This folder contains some code to make figures for the 'facts en figures' page. Figures are created using pandas/matplotlib and the excellent [wordcloud package by amueller](https://github.com/amueller/word_cloud).
 
 I have forked the original to add the option of transparency. Install the forked version with:
 
