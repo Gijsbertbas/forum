@@ -76,5 +76,5 @@ class FactsView(TemplateView):
         context['woord'] = request.POST['woord']
         context['woordcount'] = ForumMessageModel.objects.filter(body__icontains=context['woord']).count()
         with open('zoekwoorden.dat', 'a') as output:
-            output.write(context['woord']+':'+context['woordcount'])
+            output.write('%s : %i\n' % (context['woord'],context['woordcount']))
         return super(TemplateView, self).render_to_response(context)
